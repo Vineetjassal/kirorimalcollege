@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Kirori Mal College, University of Delhi</title>
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <link rel="shortcut icon" href="{% static 'img/collegelogo.png' %}" type="image/x-icon">
+      <style>
+        .slider {
+          margin-top: 100px;
+          margin-bottom: 100px;
+            display: flex;
+            animation: slide-infinite 5000ms linear infinite;
+            position: relative;
+        }
+
+        .logo {
+            flex-shrink: 0;
+            width: 150px; /* Adjust the width as per your logo size */
+            padding: 0 25px; /* Space between logos */
+            
+        }
+
+        .logo img {
+            width: 100%; /* Make the image fill the container */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        @keyframes slide-infinite {
+          0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-200%);
+            }
+        }
+    </style>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+
+      <!--navbar-->
+      <nav class="flex flex-wrap justify-between items-center py-4 px-2 mb-8 top-0 sticky bg-white shadow-lg rounded-2xl z-10 sm:pl-12 sm:pr-12 pl-4 pr-6">
+        <div class="flex items-center gap-2 ">
+          <img src="{% static 'img/collegelogo.png' %}" alt="" class="w-10 h-10">
+          <h2 class="font-bold text-3xl">KMC</h2>
+        </div>
+        <div class="flex items-center md:items-stretch gap-6">
+          <div class="hidden md:block">
+            <a href="#about" class="text-black sm:font-medium md:inline-block sm:text-xl text-4xl font-semibold">About us</a>
+          </div>
+          <div class="hidden md:block">
+            <a href="#admission" class="text-black sm:font-medium md:inline-block sm:text-xl text-4xl font-semibold">Admission</a>
+          </div>
+          <div class="hidden md:block">
+            <a href="#academics" class="text-black sm:font-medium md:inline-block sm:text-xl text-4xl font-semibold">Academics</a>
+          </div>
+          <div class="hidden md:block">
+            <a href="#placement" class="text-black sm:font-medium md:inline-block sm:text-xl text-4xl font-semibold">Placement</a>
+          </div>
+          <div class="hidden md:block">
+            <a href="#contact" class="text-black sm:font-medium md:inline-block sm:text-xl text-4xl font-semibold">Contact</a>
+          </div>
+          <div class="md:hidden">
+            <button onclick="toggleMenu()" type="button" class="text-white border-2 border-black bg-black rounded-3xl pt-1 pb-1 pl-4 pr-4 text-center font-medium shadow-md">Menu</button>
+          </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden flex flex-col mt-4">
+          <a href="#about" class="block text-black sm:font-medium sm:text-xl text-3xl font-bold mb-2">About us</a>
+          <a href="#admission" class="block text-black sm:font-medium sm:text-xl text-3xl font-bold mb-2">Admission</a>
+          <a href="#academics" class="block text-black sm:font-medium sm:text-xl text-3xl font-bold mb-2">Academics</a>
+          <a href="#placement" class="block text-black sm:font-medium sm:text-xl text-3xl font-bold">Placement</a>
+          <a href="#contact" class="block text-black sm:font-medium sm:text-xl text-3xl font-bold">Contact</a>
+        </div>
+      </nav>
+
+
+          <!--main hero-->
+          <section>
+            <div class="w-full h-screen flex items-center justify-center">
+              <div class="sm:mt-[-170px] mt-[-520px]">
+                <div
+                  x-data="{ activeSlide: 1, slideCount: 4 }"
+                  class="overflow-hidden relative"
+                >
+                  <!-- Slider -->
+                  <!-- You can remove x-init if you dont want to autoplay -->
+                    <div
+                      class="whitespace-nowrap transition-transform duration-500 ease-in-out"
+                      :style="'transform: translateX(-' + (activeSlide - 1) * 100.5 + '%)'"
+                      x-init="setInterval(() => { activeSlide = activeSlide < slideCount ? activeSlide + 1 : 1 }, 5000)"
+                    >
+                      <!-- Item 1 -->
+                      <div class="inline-block w-full ">
+                        <img
+                          src="{% static 'img/pic1.jpg' %}"
+                          alt=""
+                        />
+                      </div>
+                      <!-- Item 2 -->
+                      <div class="inline-block w-full">
+                        <img
+                          src="{% static 'img/pic2.jpg' %}"
+                          alt=""
+                        />
+                      </div>
+                      <!-- Item 3 -->
+                      <div class="inline-block w-full">
+                        <img
+                          src="{% static 'img/pic3.jpg' %}"
+                          alt=""
+                        />
+                      </div>
+                      <div class="inline-block w-full ">
+                        <img
+                          src="{% static 'img/pic4.jpg' %}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+            
+                  <!-- Prev/Next Arrows -->
+                  <div class="absolute inset-0 flex items-center justify-between px-2">
+                    <button
+                      @click="activeSlide = activeSlide > 1 ? activeSlide - 1 : slideCount"
+                      class="w-[30px] h-[30px] flex items-center bg-black/30 text-white p-2 rounded-full"
+                    >
+                      &#8592;
+                    </button>
+                    <button
+                      @click="activeSlide = activeSlide < slideCount ? activeSlide + 1 : 1"
+                      class="w-[30px] h-[30px] flex items-center bg-black/30 text-white p-2 rounded-full"
+                    >
+                      &#8594;
+                    </button>
+                  </div>
+            
+                  <!-- Dots Navigation -->
+                  <div
+                    class="absolute bottom-0 left-0 right-0 flex justify-center space-x-2 p-4"
+                  >
+                    <template x-for="slideIndex in slideCount" :key="slideIndex">
+                      <button
+                        @click="activeSlide = slideIndex"
+                        class="h-2 w-2 rounded-full"
+                        :class="{'bg-orange-500': activeSlide === slideIndex, 'bg-white/50': activeSlide !== slideIndex}"
+                      ></button>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </section>
+
+
+          <!--about-->
+          
+          <!--events-->
+          <section class="text-gray-600 body-font sm:m-[100px] mt-[-400px]">
+            <h1 class="font-bold sm:text-7xl text-5xl text-center text-black">From The Principal's Desk</h1>
+            <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+              <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+                <img class="object-cover object-center rounded" alt="hero" src="{% static 'img/prin.jpg' %}">
+              </div>
+              <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <h1 class="title-font sm:text-3xl text-2xl mb-4 font-medium text-gray-900">We must keep the world alive and awakened.
+                </h1>
+                <p class="mb-8 leading-relaxed">Incepted as Nirmla College in 1951 symbolising the feminine energy of a motherhood and established as Kirori Mal College in 1954 symbolising the crystallization of 'Nirmal Bhawana', that is, Benevolence, Benediction & Beatitude, this Body of Academic has excelled in nurturing the early buds of the society into a full blossomed flowers, spreading fragrance of their knowledge, merit and happiness all round in every nook and corner of the world. As the Principal of the College, I feel myself blessed to stand in the queue of those who have incessantly engaged themselves wholeheartedly and shaped this institution in the best possible way and made it what it stands today -
+                    <br>
+                    Titanic and Tall<br>
+                    With unflinching Wall<br>
+                    Shining like a Star<br>
+                    No one stands at Par</p>
+              </div>
+            </div>
+          </section>
+
+
+          <!--placement-->
+          <section id="placement">
+            <h1 class="text-black font-bold text-6xl text-center ">Our Placement</h1>
+            <div class="slider">
+              <div class="logo"><img src="{% static 'img/adobe.png' %}" alt="Logo 1"></div>
+              <div class="logo"><img src="{% static 'img/apple-logo.png' %}" alt="Logo 2"></div>
+              <div class="logo"><img src="{% static 'img/google.png' %}" alt="Logo 1"></div>
+              <div class="logo"><img src="{% static 'img/intel.png' %}" alt="Logo 2"></div>
+              <div class="logo"><img src="{% static 'img/spotify.png' %}" alt="Logo 1"></div>
+              <div class="logo"><img src="{% static 'img/microsoft.png' %}" alt="Logo 2"></div>
+              <div class="logo"><img src="{% static 'img/samsung.png' %}" alt="Logo 1"></div>
+              <div class="logo"><img src="{% static 'img/stripe.png' %}" alt="Logo 2"></div>
+              <div class="logo"><img src="{% static 'img/twitch.png' %}" alt="Logo 1"></div>
+              <div class="logo"><img src="{% static 'img/adidas.png' %}" alt="Logo 2"></div>
+              <div class="logo"><img src="{% static 'img/uber.png' %}" alt="Logo 1"></div>
+
+          </div>
+        </section>
+         
+
+
+          <!--contact-->
+          <section class="text-gray-600 body-font relative m-[40px]">
+            <h1 class="text-black font-bold text-6xl text-center">Contact Us</h1>
+            <div class="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
+              <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.220896711543!2d77.20514447495859!3d28.683038081786435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd91b4972361%3A0xd114167941a0a5ac!2sKirori%20Mal%20College!5e0!3m2!1sen!2sin!4v1714064122055!5m2!1sen!2sin" width="100%" height="100%" class="absolute inset-0" frameborder="0" title="map" marginheight="0" marginwidth="0" scrolling="no"></iframe>
+                <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md">
+                  <div class="lg:w-1/2 px-6">
+                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">ADDRESS</h2>
+                    <p class="mt-1">Kirori Mal College, University of Delhi (North Campus)</p>
+                  </div>
+                  <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
+                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>
+                    <a class="text-indigo-500 leading-relaxed">principal@kmc.su.ac.in</a>
+                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">PHONE</h2>
+                    <p class="leading-relaxed">+91 123-456-7890</p>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
+                <h2 class="text-gray-900 text-2xl sm:mt-[-25px] mb-1 font-medium title-font">Your Feedback</h2>
+                <div class="relative mb-4">
+                  <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
+                  <input type="text" id="name" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+                <div class="relative mb-4">
+                  <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+                  <input type="email" id="email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+                <div class="relative mb-4">
+                  <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+                  <textarea id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                </div>
+                <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+              </div>
+            </div>
+          </section>
+
+          <!--footer-->
+          <footer class="text-gray-600 body-font">
+            <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+              <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+                  <img src="{% static 'img/collegelogo.png' %}" alt="" class="sm:ml-8 w-12 h-12">
+                <span class="ml-3 text-xl">Kirori Mal College</span>
+              </a>
+              <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2024 Kirori Mal College —
+                <a href="https://vineetjassal.github.io/" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@vineetjassal</a>
+              </p>
+              <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+                <a class="text-gray-500" href="https://www.facebook.com/KMCollegeDelhi" target="_blank">
+                  <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                  </svg>
+                </a>
+                <a class="ml-3 text-gray-500" href="https://twitter.com/KMCollegeDelhi" target="_blank">
+                  <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                  </svg>
+                </a>
+                <a class="ml-3 text-gray-500" href="https://www.instagram.com/kmcollegedelhi/" target="_blank">
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+                  </svg>
+                </a>
+                <a class="ml-3 text-gray-500" href="https://www.linkedin.com/company/kmcollegedelhi/" target="_blank">
+                  <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                    <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                    <circle cx="4" cy="4" r="2" stroke="none"></circle>
+                  </svg>
+                </a>
+              </span>
+            </div>
+          </footer>
+          <script src="{% static 'js/index.js' %}"></script>
+          
+</body>
+</html>
